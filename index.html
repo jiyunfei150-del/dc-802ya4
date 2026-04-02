@@ -7,138 +7,108 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#04080f;color:#c8dff5;font-family:'Inter',-apple-system,sans-serif;min-height:100vh;padding:28px 24px}
+body{background:#f0f4ff;color:#1e293b;font-family:'Inter',-apple-system,sans-serif;padding:32px 28px}
 
-/* Header */
-.hdr{text-align:center;padding:28px 0 22px;margin-bottom:24px;border-bottom:1px solid rgba(59,130,246,.12)}
-.hdr h1{font-size:24px;font-weight:700;color:#fff;letter-spacing:-.3px;margin-bottom:6px}
-.hdr p{color:#4a6f94;font-size:12px}
-.stats{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}
-.stat{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.18);border-radius:8px;padding:7px 18px;text-align:center}
-.stat-n{font-size:20px;font-weight:700;color:#60a5fa}
-.stat-l{font-size:9.5px;color:#4a6f94;margin-top:1px;letter-spacing:.4px;text-transform:uppercase}
+.hdr{text-align:center;margin-bottom:28px}
+.hdr h1{font-size:22px;font-weight:700;color:#1e3a8a;letter-spacing:-.3px}
+.hdr p{color:#64748b;font-size:12px;margin-top:5px}
 
-/* Main grid — Google in col 2 (visual center) */
-.lanes{display:grid;grid-template-columns:1.4fr 1.9fr 1.3fr 0.95fr;gap:14px;max-width:1700px;margin:0 auto}
+/* 4 lanes */
+.lanes{display:grid;grid-template-columns:1.4fr 1.8fr 1.2fr 0.9fr;gap:16px;max-width:1600px;margin:0 auto}
 
-.lane{background:#080e1c;border-radius:14px;overflow:hidden;border:1px solid rgba(59,130,246,.1)}
-.lh{padding:11px 14px;font-size:10.5px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;border-bottom:1px solid rgba(59,130,246,.08)}
-.l-czzx .lh{color:#4ade80;border-left:3px solid #22c55e}
-.l-google .lh{color:#60a5fa;border-left:3px solid #3b82f6;background:rgba(59,130,246,.06)}
-.l-hermes .lh{color:#c084fc;border-left:3px solid #a855f7}
-.l-cfg .lh{color:#fbbf24;border-left:3px solid #f59e0b}
-.lb{padding:14px 10px;display:flex;flex-direction:column;gap:7px}
+.lane{background:#fff;border-radius:14px;border:1px solid #dbeafe;box-shadow:0 1px 8px rgba(37,99,235,.06)}
+.lh{padding:11px 16px;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;border-bottom:1px solid #dbeafe;border-radius:14px 14px 0 0}
+.l-czzx .lh{color:#16a34a;background:#f0fdf4;border-left:3px solid #22c55e}
+.l-google .lh{color:#1d4ed8;background:#eff6ff;border-left:3px solid #2563eb}
+.l-hermes .lh{color:#7c3aed;background:#faf5ff;border-left:3px solid #8b5cf6}
+.l-cfg .lh{color:#b45309;background:#fffbeb;border-left:3px solid #f59e0b}
+.lb{padding:14px 12px;display:flex;flex-direction:column;gap:6px}
 
 /* Nodes */
-.nd{border-radius:9px;padding:10px 12px;cursor:default;transition:box-shadow .15s}
-.nd:hover{box-shadow:0 6px 20px rgba(0,0,0,.5)}
-.nt{font-weight:600;font-size:11.5px;color:#e2f0ff;font-family:'JetBrains Mono',monospace;line-height:1.3}
-.ns{font-size:10px;color:#4a6f94;margin-top:3px;font-family:'Inter',sans-serif}
-.nf{margin-top:5px;font-size:9.5px;font-family:'JetBrains Mono',monospace;color:#6b8cae;line-height:1.5}
+.nd{border-radius:8px;padding:9px 11px;border:1px solid}
+.nt{font-weight:600;font-size:11px;color:#0f172a;font-family:'JetBrains Mono',monospace}
+.ns{font-size:9.5px;color:#64748b;margin-top:2px}
+.nf{font-size:9px;font-family:'JetBrains Mono',monospace;color:#94a3b8;margin-top:4px;line-height:1.5}
 
-/* Node color variants */
-.nd-src{background:#0b1322;border:1px solid rgba(96,165,250,.2)}
-.nd-ods{background:#071828;border:1px solid rgba(56,189,248,.25);border-left:2px solid #0ea5e9}
-.nd-dwd{background:#061a28;border:1px solid rgba(34,211,238,.2);border-left:2px solid #06b6d4}
-.nd-ads{background:#051a1a;border:1px solid rgba(20,184,166,.3);border-left:2px solid #14b8a6}
-.nd-ads-star{background:#071f1f;border:2px solid rgba(20,184,166,.5);border-left:3px solid #14b8a6}
-.nd-view{background:#120a22;border:1px solid rgba(168,85,247,.3);border-left:2px solid #a855f7}
-.nd-dim{background:#1a1206;border:1px solid rgba(251,191,36,.2);border-left:2px solid #f59e0b}
-.nd-cfg{background:#1a0e06;border:1px solid rgba(251,146,60,.25);border-left:2px solid #f97316}
-.nd-rule{background:#180820;border:1px solid rgba(192,132,252,.18)}
-.nd-sea{background:#051808;border:1px solid rgba(74,222,128,.3);border-left:2px solid #22c55e}
-.nd-cn{background:#0a1a04;border:1px solid rgba(163,230,53,.25);border-left:2px solid #84cc16}
-.nd-bx{background:#0f1a04;border:1px solid rgba(202,220,43,.2);border-left:2px solid #bef264}
+.nd-src{background:#f8faff;border-color:#bfdbfe}
+.nd-ods{background:#eff6ff;border-color:#93c5fd;border-left:2px solid #3b82f6}
+.nd-dwd{background:#ecfeff;border-color:#a5f3fc;border-left:2px solid #06b6d4}
+.nd-ads{background:#f0fdfa;border-color:#99f6e4;border-left:2px solid #14b8a6}
+.nd-ads-star{background:#f0fdfa;border:2px solid #14b8a6;border-left:3px solid #0d9488}
+.nd-view{background:#faf5ff;border-color:#d8b4fe;border-left:2px solid #8b5cf6}
+.nd-dim{background:#fffbeb;border-color:#fde68a;border-left:2px solid #f59e0b}
+.nd-cfg{background:#fff7ed;border-color:#fed7aa;border-left:2px solid #f97316}
+.nd-sea{background:#f0fdf4;border-color:#86efac;border-left:2px solid #22c55e}
+.nd-cn{background:#f7fef4;border-color:#bbf7d0;border-left:2px solid #86efac}
+.nd-bx{background:#fafef5;border-color:#d9f99d;border-left:2px solid #a3e635}
+.nd-rule{background:#fdf4ff;border-color:#e9d5ff}
 
 /* Arrows */
-.arr{display:flex;flex-direction:column;align-items:center;padding:1px 0;gap:1px}
-.arr-line{width:1px;height:14px;background:rgba(59,130,246,.3)}
-.arr-head{color:rgba(59,130,246,.5);font-size:13px;line-height:1}
-.arr-lbl{font-size:9px;font-family:'JetBrains Mono',monospace;color:#3b82f6;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.15);border-radius:4px;padding:2px 8px;text-align:center;max-width:160px;line-height:1.45;margin:1px 0}
+.arr{display:flex;flex-direction:column;align-items:center;gap:2px;padding:2px 4px}
+.arr-head{color:#3b82f6;font-size:14px;line-height:1}
+.arr-lbl{font-size:8.5px;font-family:'JetBrains Mono',monospace;color:#2563eb;background:#eff6ff;border:1px solid #bfdbfe;border-radius:4px;padding:2px 7px;text-align:center;line-height:1.5;max-width:200px}
 
-/* Sub-lane */
-.sl{border:1px solid rgba(74,222,128,.14);border-radius:8px;padding:8px 8px;margin-bottom:5px}
-.sl-lbl{font-size:8.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding-bottom:4px;margin-bottom:5px;border-bottom:1px dashed rgba(74,222,128,.14)}
-.sl-sea .sl-lbl{color:#4ade80}
-.sl-cn .sl-lbl{color:#a3e635}
-.sl-bx .sl-lbl{color:#bef264}
+/* Sub-lanes */
+.sl{border:1px solid #dcfce7;border-radius:8px;padding:8px 8px;margin-bottom:4px;background:#fafffe}
+.sl-lbl{font-size:8px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding-bottom:4px;margin-bottom:5px;border-bottom:1px dashed #bbf7d0;color:#15803d}
+.sl-cn .sl-lbl{color:#4d7c0f;border-color:#d9f99d}
+.sl-bx .sl-lbl{color:#65a30d;border-color:#d9f99d}
+.sl-cn{border-color:#d9f99d}
+.sl-bx{border-color:#d9f99d;background:#fefef9}
 
-.sec{text-align:center;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(59,130,246,.3);padding:5px 0 3px;border-top:1px dashed rgba(59,130,246,.08);margin-top:2px}
+.sec{text-align:center;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;padding:5px 0 3px;border-top:1px dashed #e2e8f0;margin-top:2px}
 
-/* Badges */
-.bdg{display:inline-block;font-size:8px;padding:1px 7px;border-radius:3px;font-weight:600;margin-top:5px;font-family:'Inter',sans-serif;letter-spacing:.2px}
-.bt{background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.2)}
-.bj{background:rgba(59,130,246,.1);color:#60a5fa;border:1px solid rgba(59,130,246,.2)}
-.bp{background:rgba(248,113,113,.1);color:#f87171;border:1px solid rgba(248,113,113,.18)}
+.bdg{display:inline-block;font-size:7.5px;padding:1px 6px;border-radius:3px;font-weight:600;margin-top:4px;font-family:'Inter',sans-serif}
+.bt{background:#fef3c7;color:#b45309;border:1px solid #fde68a}
+.bj{background:#dbeafe;color:#1d4ed8;border:1px solid #93c5fd}
+.bp{background:#fee2e2;color:#b91c1c;border:1px solid #fca5a5}
+.bg{background:#dcfce7;color:#15803d;border:1px solid #86efac}
 
 /* Convergence */
-.conv{max-width:1700px;margin:20px auto 0}
-.conv-ttl{text-align:center;font-size:9.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:rgba(59,130,246,.35);margin-bottom:14px}
-.jgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px}
-.jcard{background:#080e1c;border:1px solid rgba(59,130,246,.14);border-radius:12px;padding:13px 15px}
-.jt{font-size:11px;font-weight:700;color:#60a5fa;margin-bottom:6px}
-.jb{font-size:9.5px;font-family:'JetBrains Mono',monospace;color:#4a6f94;line-height:1.75}
-.jb em{color:#f87171;font-style:normal}
-.jb strong{color:#93c5fd}
+.conv{max-width:1600px;margin:20px auto 0}
+.join-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px}
+.jcard{background:#fff;border:1px solid #dbeafe;border-radius:10px;padding:12px 14px;box-shadow:0 1px 4px rgba(37,99,235,.05)}
+.jt{font-size:10.5px;font-weight:700;color:#1d4ed8;margin-bottom:6px}
+.jb{font-size:9px;font-family:'JetBrains Mono',monospace;color:#64748b;line-height:1.8}
+.jb strong{color:#1e40af}
+.jb em{color:#dc2626;font-style:normal}
 
-.f-arr{text-align:center;font-size:20px;color:rgba(74,222,128,.4);margin:10px 0}
-.final{background:linear-gradient(135deg,rgba(5,25,20,.9),rgba(5,15,30,.9));border:2px solid rgba(20,184,166,.3);border-radius:16px;padding:22px 40px;text-align:center}
-.final h3{font-size:18px;font-weight:700;color:#2dd4bf;letter-spacing:-.2px}
-.final p{font-size:11px;color:#4a6f94;margin-top:5px;font-family:'JetBrains Mono',monospace}
-.feats{display:flex;justify-content:center;gap:9px;margin-top:13px;flex-wrap:wrap}
-.feat{font-size:10px;background:rgba(20,184,166,.08);border:1px solid rgba(20,184,166,.2);border-radius:5px;padding:3px 10px;color:#5eead4}
+.f-arr{text-align:center;font-size:18px;color:#3b82f6;margin:10px 0}
+.final{background:linear-gradient(135deg,#f0fdf4,#eff6ff);border:2px solid #34d399;border-radius:14px;padding:20px 40px;text-align:center;max-width:1600px;margin:0 auto 32px}
+.final h3{font-size:17px;font-weight:700;color:#065f46}
+.final p{font-size:10.5px;color:#64748b;margin-top:4px;font-family:'JetBrains Mono',monospace}
+.feats{display:flex;justify-content:center;gap:8px;margin-top:11px;flex-wrap:wrap}
+.feat{font-size:9.5px;background:#d1fae5;border:1px solid #6ee7b7;border-radius:5px;padding:3px 10px;color:#065f46;font-weight:500}
 
-/* Detail cards */
-.dets{max-width:1700px;margin:22px auto;padding-bottom:28px}
-.dets-t{text-align:center;font-size:9.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:rgba(59,130,246,.3);margin-bottom:14px}
-.dgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.dc{background:#080e1c;border-radius:11px;padding:14px;border:1px solid rgba(59,130,246,.08)}
-.dc h4{font-size:11px;font-weight:700;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(59,130,246,.07)}
-.dc-g h4{color:#60a5fa} .dc-c h4{color:#4ade80} .dc-h h4{color:#c084fc} .dc-s h4{color:#fbbf24}
-.di{font-size:9.5px;padding:4px 0;border-bottom:1px solid rgba(59,130,246,.05);line-height:1.45;color:#4a6f94}
-.di:last-child{border-bottom:none}
-.di code{color:#93c5fd;font-family:'JetBrains Mono',monospace;font-size:9px}
-
-footer{text-align:center;padding:18px;color:rgba(59,130,246,.2);font-size:10px;border-top:1px solid rgba(59,130,246,.07);margin-top:12px}
+footer{text-align:center;padding:16px;color:#cbd5e1;font-size:10px;border-top:1px solid #e2e8f0}
 </style>
 </head>
 <body>
 
 <div class="hdr">
   <h1>谷歌结算数据流转图</h1>
-  <p>Google Play Console → ODS → DWD → ADS → 账单明细 · 充值中心三套 &amp; Hermes 关联链路 · StarRocks 3.3.18</p>
-  <div class="stats">
-    <div class="stat"><div class="stat-n">4</div><div class="stat-l">数据链路</div></div>
-    <div class="stat"><div class="stat-n">3</div><div class="stat-l">充值中心</div></div>
-    <div class="stat"><div class="stat-n">12+</div><div class="stat-l">核心表/视图</div></div>
-    <div class="stat"><div class="stat-n">3</div><div class="stat-l">配置入口</div></div>
-    <div class="stat"><div class="stat-n">09:25</div><div class="stat-l">结算报表跑数</div></div>
-  </div>
+  <p>Google Play Console → ODS → DWD → ADS → 账单明细 &nbsp;·&nbsp; 充值中心三套 &amp; Hermes 关联链路</p>
 </div>
 
-<!-- 4 lanes: 充值中心 | 谷歌主链路(center) | Hermes | 用户配置 -->
 <div class="lanes">
 
-  <!-- ① 充值中心三套 -->
+  <!-- ① 充值中心 -->
   <div class="lane l-czzx">
     <div class="lh">① 充值中心（三套）</div>
     <div class="lb">
 
-      <!-- 海外 -->
-      <div class="sl sl-sea">
+      <div class="sl">
         <div class="sl-lbl">🌏 海外</div>
         <div class="nd nd-sea">
           <div class="nt">czzx_pay_order_ocean</div>
           <div class="ns">finance_ods</div>
         </div>
         <div class="arr">
-          <div class="arr-line"></div>
           <div class="arr-lbl">JOIN czzx_account_infos_ocean ON ai_id → pay_name<br>JOIN pay_order_extra_info_hw ON order_num → currency_code</div>
           <div class="arr-head">↓</div>
         </div>
       </div>
 
-      <!-- 国内 -->
       <div class="sl sl-cn">
         <div class="sl-lbl">🇨🇳 国内</div>
         <div class="nd nd-cn">
@@ -146,13 +116,11 @@ footer{text-align:center;padding:18px;color:rgba(59,130,246,.2);font-size:10px;b
           <div class="ns">finance_ods</div>
         </div>
         <div class="arr">
-          <div class="arr-line"></div>
-          <div class="arr-lbl">JOIN czzx_account_infos ON ai_id → pay_name<br>currency_code = 'CNY'（固定）</div>
+          <div class="arr-lbl">JOIN czzx_account_infos ON ai_id → pay_name · CNY固定</div>
           <div class="arr-head">↓</div>
         </div>
       </div>
 
-      <!-- 柏项 -->
       <div class="sl sl-bx">
         <div class="sl-lbl">🏢 柏项</div>
         <div class="nd nd-bx">
@@ -160,101 +128,82 @@ footer{text-align:center;padding:18px;color:rgba(59,130,246,.2);font-size:10px;b
           <div class="ns">finance_ods</div>
         </div>
         <div class="arr">
-          <div class="arr-line"></div>
-          <div class="arr-lbl">JOIN czzx_account_infos_bx ON ai_id → pay_name<br>currency_code = 'CNY'（固定）</div>
+          <div class="arr-lbl">JOIN czzx_account_infos_bx ON ai_id → pay_name · CNY固定</div>
           <div class="arr-head">↓</div>
         </div>
       </div>
 
-      <div class="arr">
-        <div class="arr-lbl">三套写入同表，area 字段区分来源</div>
-        <div class="arr-head">↓</div>
-      </div>
-
       <div class="nd nd-ads">
         <div class="nt">czzx_google_report</div>
-        <div class="ns">finance_ads · area / log_date / pay_name / platform_type / currency_code</div>
+        <div class="ns">finance_ads · area / pay_name / platform_type</div>
       </div>
 
       <div class="arr">
-        <div class="arr-line"></div>
         <div class="arr-lbl">JOIN platform_match_report ON area+platform_type → platform_id<br>JOIN google_account_info ON pay_name = google_account_id → currency_code<br>JOIN daily_exchange_rate × 2 → 汇率转换</div>
         <div class="arr-head">↓</div>
       </div>
 
       <div class="nd nd-view">
         <div class="nt">czzx_google_report_view</div>
-        <div class="ns">finance_ads · 充值中心我方流水视图</div>
-        <div class="nf">→ results_our_water（结算币）</div>
-        <span class="bdg bp">优先级：高</span>
+        <div class="ns">我方流水视图 · results_our_water（结算币）</div>
+        <span class="bdg bg">优先级：高</span>
       </div>
 
     </div>
   </div>
 
-  <!-- ② 谷歌主链路（居中） -->
+  <!-- ② 谷歌主链路 -->
   <div class="lane l-google">
     <div class="lh">② 谷歌主链路 ⭐</div>
     <div class="lb">
 
       <div class="nd nd-src">
         <div class="nt">Google Play Console</div>
-        <div class="ns">earnings CSV（实际）· sales CSV（暂估）</div>
-        <div class="nf">各区域取数机器拉取</div>
+        <div class="ns">earnings CSV（实际）· sales CSV（暂估）· 各区域取数机器拉取</div>
       </div>
 
-      <div class="arr">
-        <div class="arr-line"></div>
-        <div class="arr-head">↓</div>
-      </div>
-
+      <div class="arr"><div class="arr-head">↓</div></div>
       <div class="sec">ODS 层</div>
 
       <div class="nd nd-ods">
         <div class="nt">b_google_orders</div>
-        <div class="ns">finance_ods · 实际账单原始订单</div>
-        <div class="nf">account · product_id · Transaction_Type<br>buyer_currency · merchant_currency · amount_*</div>
+        <div class="ns">finance_ods · 实际订单</div>
+        <div class="nf">account · product_id · Transaction_Type · buyer/merchant_currency · amount_*</div>
         <span class="bdg bt">08:00 / 12:00</span>
       </div>
 
-      <div class="nd nd-ods" style="margin-top:5px">
+      <div class="nd nd-ods" style="margin-top:4px">
         <div class="nt">b_google_orders_predict</div>
-        <div class="ns">finance_ods · 暂估账单原始订单</div>
-        <div class="nf">account · product_id · product_type<br>currency_of_sale · item_price · country_of_buyer</div>
-        <span class="bdg bt">07:00 / 11:00（取数机器）</span>
+        <div class="ns">finance_ods · 暂估订单</div>
+        <div class="nf">account · product_id · product_type · currency_of_sale · item_price</div>
+        <span class="bdg bt">07:00 / 11:00</span>
       </div>
 
-      <div class="arr">
-        <div class="arr-line"></div>
-        <div class="arr-head">↓</div>
-      </div>
-
+      <div class="arr"><div class="arr-head">↓</div></div>
       <div class="sec">DWD 层</div>
 
       <div class="nd nd-dwd">
         <div class="nt">google_order_report</div>
-        <div class="ns">finance_dwd · 实际订单一级聚合</div>
+        <div class="ns">finance_dwd · 实际一级聚合</div>
         <span class="bdg bt">每小时 08:00–20:00</span>
       </div>
 
-      <div class="nd nd-dwd" style="margin-top:5px">
+      <div class="nd nd-dwd" style="margin-top:4px">
         <div class="nt">google_order_predict_report</div>
-        <div class="ns">finance_dwd · 暂估订单一级聚合</div>
+        <div class="ns">finance_dwd · 暂估一级聚合</div>
         <span class="bdg bt">每小时 08:03–20:03</span>
       </div>
 
       <div class="arr">
-        <div class="arr-line"></div>
-        <div class="arr-lbl">实际: account = old_account<br>暂估: account = account<br>+ product_id → platform_id（via 计费点表）<br>+ 暂估费率/税率计算<br>+ daily_exchange_rate 汇率转换</div>
+        <div class="arr-lbl">实际: account = old_account &nbsp;|&nbsp; 暂估: account = account<br>product_id → platform_id（via 计费点表）· 费率/税率计算 · 汇率转换</div>
         <div class="arr-head">↓</div>
       </div>
-
       <div class="sec">ADS 层</div>
 
       <div class="nd nd-ads-star">
         <div class="nt">google_result_report ⭐</div>
-        <div class="ns">finance_ads · 谷歌结算核心报表（实际 + 暂估合表）</div>
-        <div class="nf">log_date · company_id · google_account_id<br>platform_id · sales_currency · result_currency<br>sales_*/results_* · *_zg（暂估）<br>refund_amount · re_refund_amount</div>
+        <div class="ns">finance_ads · 结算核心报表（实际 + 暂估合表）</div>
+        <div class="nf">log_date · company_id · google_account_id · platform_id<br>sales_currency · result_currency · sales_* · results_* · *_zg</div>
         <span class="bdg bt">09:25 写入</span>
       </div>
 
@@ -268,28 +217,26 @@ footer{text-align:center;padding:18px;color:rgba(59,130,246,.2);font-size:10px;b
 
       <div class="nd nd-src">
         <div class="nt">hermes_ad_report</div>
-        <div class="ns">finance_ads · Hermes 广告报表</div>
+        <div class="ns">finance_ads</div>
         <div class="nf">log_date · third_app_id · revenue<br>platform IN ('Android','C_Android')</div>
       </div>
 
       <div class="arr">
-        <div class="arr-line"></div>
         <div class="arr-lbl">JOIN google_product_title_info ON third_app_id = product_id → account · platform_id<br>JOIN google_account_info ON account → currency_code<br>JOIN daily_exchange_rate → revenue / usd_exchange</div>
         <div class="arr-head">↓</div>
       </div>
 
       <div class="nd nd-view">
         <div class="nt">hermes_ad_report_view</div>
-        <div class="ns">finance_ads · Hermes 我方流水视图</div>
-        <div class="nf">→ results_our_water（结算币）</div>
+        <div class="ns">我方流水视图 · results_our_water（结算币）</div>
         <span class="bdg bp">优先级：低</span>
       </div>
 
-      <div class="sec" style="margin-top:12px">排除逻辑</div>
+      <div class="arr"><div class="arr-head">↓</div></div>
 
-      <div class="nd nd-rule" style="margin-top:4px">
-        <div class="nt" style="font-size:10.5px;color:#e9d5ff">NOT EXISTS 去重</div>
-        <div class="nf" style="color:#9d7bca">czzx_google_report 已有<br>同日期+账号+项目+币种<br>→ 排除 Hermes 该条</div>
+      <div class="nd nd-rule">
+        <div class="nt" style="font-size:10.5px">NOT EXISTS 去重</div>
+        <div class="ns">充值中心已有同日期+账号+项目+币种 → 排除 Hermes 该条</div>
       </div>
 
     </div>
@@ -303,46 +250,32 @@ footer{text-align:center;padding:18px;color:rgba(59,130,246,.2);font-size:10px;b
       <div class="nd nd-cfg">
         <div class="nt">/account/info/</div>
         <div class="ns">→ google_account_info</div>
-        <div class="nf">google_account_id<br>old_account · account<br>company_id · currency_code</div>
-        <span class="bdg bj">所有链路关联</span>
+        <div class="nf">google_account_id · old_account · account · company_id · currency_code</div>
+        <span class="bdg bj">所有链路</span>
       </div>
 
-      <div class="nd nd-cfg" style="margin-top:6px">
+      <div class="nd nd-cfg" style="margin-top:5px">
         <div class="nt">/product/title/info/</div>
         <div class="ns">→ google_product_title_info</div>
-        <div class="nf">product_id → platform_id<br>account · game_name</div>
+        <div class="nf">product_id → platform_id · account · game_name</div>
         <span class="bdg bj">Hermes关联核心</span>
       </div>
 
-      <div class="nd nd-cfg" style="margin-top:6px">
+      <div class="nd nd-cfg" style="margin-top:5px">
         <div class="nt">/sme/service/rate/</div>
         <div class="ns">→ google_sme_service_rate</div>
-        <div class="nf">google_account_id<br>year_month · service_rate</div>
+        <div class="nf">google_account_id · year_month · service_rate</div>
         <span class="bdg bj">仅暂估使用</span>
       </div>
 
-      <div class="sec" style="margin-top:12px">暂估费率规则</div>
-
-      <div class="nd nd-dim" style="margin-top:4px">
-        <div class="nf" style="font-size:9px;opacity:.85">
-          有SME配置 → service_rate<br>
-          subscription → 15%<br>
-          其他 → 30%<br>
-          GST: H2/LUMOS × 9%<br>
-          预扣税: BR=25% · TW=3%
-        </div>
-      </div>
-
-      <div class="sec" style="margin-top:10px">系统维护</div>
-
-      <div class="nd nd-dim" style="margin-top:4px">
+      <div class="nd nd-dim" style="margin-top:8px">
         <div class="nt">daily_exchange_rate</div>
-        <div class="ns">finance_dim · 每日汇率</div>
+        <div class="ns">finance_dim · 每日汇率（系统维护）</div>
       </div>
 
       <div class="nd nd-dim" style="margin-top:5px">
         <div class="nt">platform_match_report</div>
-        <div class="ns">finance_ads · 充值中心项目映射</div>
+        <div class="ns">充值中心项目映射</div>
         <div class="nf">area + platform_type → platform_id</div>
       </div>
 
@@ -353,51 +286,30 @@ footer{text-align:center;padding:18px;color:rgba(59,130,246,.2);font-size:10px;b
 
 <!-- Convergence -->
 <div class="conv">
-  <div class="conv-ttl" style="margin-top:20px">最终聚合 · 三路 JOIN</div>
+  <div class="f-arr">↓ 最终聚合</div>
 
-  <div class="jgrid">
+  <div class="join-row">
     <div class="jcard">
       <div class="jt">主表 JOIN 充值中心视图</div>
-      <div class="jb">
-        google_result_report<br>
-        LEFT JOIN czzx_google_report_view<br>
-        &nbsp;&nbsp;ON <strong>log_date</strong><br>
-        &nbsp;&nbsp;&amp; <strong>google_account_id = account</strong><br>
-        &nbsp;&nbsp;&amp; <strong>platform_id</strong><br>
-        &nbsp;&nbsp;&amp; <strong>sales_currency · result_currency</strong>
-      </div>
+      <div class="jb">ON <strong>log_date</strong> &amp; <strong>google_account_id = account</strong><br>&amp; <strong>platform_id</strong> &amp; <strong>sales_currency</strong> &amp; <strong>result_currency</strong></div>
     </div>
     <div class="jcard">
       <div class="jt">主表 JOIN Hermes 视图</div>
-      <div class="jb">
-        google_result_report<br>
-        LEFT JOIN hermes_ad_report_view<br>
-        &nbsp;&nbsp;ON <strong>log_date</strong><br>
-        &nbsp;&nbsp;&amp; <strong>google_account_id = account</strong><br>
-        &nbsp;&nbsp;&amp; <strong>platform_id · result_currency</strong><br>
-        <em>（充值中心已有数据时 Hermes 为 NULL）</em>
-      </div>
+      <div class="jb">ON <strong>log_date</strong> &amp; <strong>google_account_id = account</strong><br>&amp; <strong>platform_id</strong> &amp; <strong>result_currency</strong><br><em>（充值中心已有数据时 Hermes 为 NULL）</em></div>
     </div>
     <div class="jcard">
-      <div class="jt">结算金额计算</div>
-      <div class="jb">
-        results_settlement_amount =<br>
-        &nbsp;&nbsp;results_amount - results_fee<br>
-        &nbsp;&nbsp;- results_gst - results_taxs<br>
-        &nbsp;&nbsp;- refund_amount<br>
-        &nbsp;&nbsp;+ re_refund_amount<br>
-        &nbsp;&nbsp;+ re_tax_refund_amount
-      </div>
+      <div class="jt">结算金额</div>
+      <div class="jb">results_amount - results_fee - results_gst<br>- results_taxs - refund_amount<br>+ re_refund_amount + re_tax_refund_amount</div>
     </div>
   </div>
 
   <div class="f-arr">↓</div>
 
   <div class="final">
-    <h3>🏁 结算系统 · 账单明细页</h3>
-    <p>/settlement_system/google/bill/detail/</p>
+    <h3>🏁 结算系统 · 账单明细页 &nbsp;/google/bill/detail/</h3>
+    <p>google_result_report &nbsp;LEFT JOIN&nbsp; czzx_google_report_view &nbsp;LEFT JOIN&nbsp; hermes_ad_report_view</p>
     <div class="feats">
-      <span class="feat">多维聚合（4种维度）</span>
+      <span class="feat">多维聚合（4种）</span>
       <span class="feat">实际 / 暂估切换</span>
       <span class="feat">日 / 月粒度</span>
       <span class="feat">数据权限控制</span>
@@ -407,39 +319,6 @@ footer{text-align:center;padding:18px;color:rgba(59,130,246,.2);font-size:10px;b
   </div>
 </div>
 
-<!-- Detail cards -->
-<div class="dets">
-  <div class="dets-t">补充说明</div>
-  <div class="dgrid">
-    <div class="dc dc-g">
-      <h4>谷歌账号三字段</h4>
-      <div class="di"><code>old_account</code> 用于关联实际订单（earnings）</div>
-      <div class="di"><code>account</code> 用于关联暂估订单（sales），格式略有差异</div>
-      <div class="di"><code>google_account_id</code> 标准化统一 Key，充值中心/Hermes 均用此字段</div>
-    </div>
-    <div class="dc dc-c">
-      <h4>充值中心三套差异</h4>
-      <div class="di">海外需额外 JOIN <code>pay_order_extra_info_hw</code> 获取 currency_code</div>
-      <div class="di">国内/柏项 currency_code 固定 CNY，无需额外关联</div>
-      <div class="di">三套均通过 <code>platform_match_report</code> 映射到财务 platform_id</div>
-      <div class="di"><code>area</code> 字段区分来源，写入同一张 czzx_google_report</div>
-    </div>
-    <div class="dc dc-h">
-      <h4>Hermes 补充逻辑</h4>
-      <div class="di">充值中心有数据 → Hermes 该条被 NOT EXISTS 排除</div>
-      <div class="di">充值中心无数据 → Hermes 数据填补空缺</div>
-      <div class="di">两者 UNION ALL → <code>google_our_result_report_view</code></div>
-    </div>
-    <div class="dc dc-s">
-      <h4>调度时间线</h4>
-      <div class="di"><code>07:00/11:00</code> 取数机器拉暂估 CSV</div>
-      <div class="di"><code>08:00–20:00/h</code> DWD 实际清洗</div>
-      <div class="di"><code>08:03–20:03/h</code> DWD 暂估清洗</div>
-      <div class="di"><code>09:25</code> DWD→ADS 结算报表写入</div>
-    </div>
-  </div>
-</div>
-
-<footer>Generated by 小D · DataClaw &nbsp;·&nbsp; 谷歌结算数据链路 v1.1 &nbsp;·&nbsp; 2026-04-02</footer>
+<footer>Generated by 小D · DataClaw &nbsp;·&nbsp; 谷歌结算数据链路 v1.2 &nbsp;·&nbsp; 2026-04-02</footer>
 </body>
 </html>
