@@ -4,149 +4,161 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>谷歌结算数据流转图</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:#fff; color:#0f172a; font-family:'Inter',-apple-system,sans-serif; padding:40px 36px 48px; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#edf0f7;color:#0f172a;font-family:'Inter',-apple-system,sans-serif;padding:44px 40px 56px;min-width:1100px}
 
-/* ── Header ── */
-.hdr { text-align:center; margin-bottom:36px; }
-.hdr h1 { font-size:20px; font-weight:700; color:#0f172a; letter-spacing:-.2px; }
-.hdr p  { font-size:11px; color:#94a3b8; margin-top:5px; }
+/* ─── Header ─── */
+.hdr{text-align:center;margin-bottom:40px}
+.hdr h1{font-size:22px;font-weight:700;color:#0f172a;letter-spacing:-.4px}
+.hdr p{font-size:11.5px;color:#94a3b8;margin-top:6px;font-weight:400}
 
-/* ── 3-column main layout ── */
-.main { display:grid; grid-template-columns:1fr 1.5fr 1fr; gap:22px; max-width:1480px; margin:0 auto; align-items:start; }
+/* ─── Zone card ─── */
+.zone{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.05)}
+.zh{padding:13px 18px;display:flex;align-items:center;gap:9px}
+.zh-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.zh-text{font-size:10px;font-weight:700;letter-spacing:.7px;text-transform:uppercase}
+.zb{padding:16px 14px;display:flex;flex-direction:column;align-items:center;gap:0}
 
-/* ── Zone containers ── */
-.zone { border-radius:14px; padding:18px 14px 16px; position:relative; }
-.zone-title {
-  font-size:9.5px; font-weight:700; letter-spacing:.9px; text-transform:uppercase;
-  margin-bottom:16px; display:flex; align-items:center; gap:6px;
+/* Zone accent colors */
+.zc-green .zh{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-bottom:1px solid #bbf7d0}
+.zc-green .zh-dot{background:#22c55e}
+.zc-green .zh-text{color:#15803d}
+
+.zc-blue .zh{background:linear-gradient(135deg,#eff6ff,#dbeafe);border-bottom:1px solid #bfdbfe}
+.zc-blue .zh-dot{background:#3b82f6}
+.zc-blue .zh-text{color:#1d4ed8}
+
+.zc-violet .zh{background:linear-gradient(135deg,#faf5ff,#ede9fe);border-bottom:1px solid #ddd6fe}
+.zc-violet .zh-dot{background:#8b5cf6}
+.zc-violet .zh-text{color:#6d28d9}
+
+.zc-amber .zh{background:linear-gradient(135deg,#fffbeb,#fef3c7);border-bottom:1px solid #fde68a}
+.zc-amber .zh-dot{background:#f59e0b}
+.zc-amber .zh-text{color:#b45309}
+
+/* ─── Node ─── */
+.nd{
+  width:100%;background:#fff;border-radius:10px;padding:10px 13px;
+  border:1px solid #e8ecf3;text-align:center;
+  box-shadow:0 1px 2px rgba(15,23,42,.05),0 2px 8px rgba(15,23,42,.04);
+  transition:box-shadow .18s,transform .18s;
 }
-.zone-title::before { content:''; display:inline-block; width:8px; height:8px; border-radius:2px; }
+.nd:hover{box-shadow:0 2px 8px rgba(15,23,42,.1),0 8px 24px rgba(15,23,42,.08);transform:translateY(-1px)}
+.nd-cn{font-size:13px;font-weight:600;color:#0f172a;line-height:1.3}
+.nd-en{font-size:8.5px;color:#94a3b8;font-family:'JetBrains Mono',monospace;margin-top:3px;letter-spacing:.2px}
+.nd-sub{font-size:8px;color:#c0c9d8;margin-top:2px;letter-spacing:.2px}
 
-.z-czzx { border:1.5px solid #4ade80; background:#fafff7; }
-.z-czzx .zone-title { color:#16a34a; }
-.z-czzx .zone-title::before { background:#22c55e; }
+/* Node left accent */
+.n-ods  {border-left:3px solid #60a5fa}
+.n-dwd  {border-left:3px solid #22d3ee}
+.n-ads  {border-left:3px solid #2dd4bf;background:linear-gradient(135deg,#f8fffe,#f0fdfa)}
+.n-view {border-left:3px solid #a78bfa}
+.n-czzx {border-left:3px solid #4ade80}
+.n-hermes{border-left:3px solid #c084fc}
+.n-dim  {border-left:3px solid #fbbf24}
+.n-src  {border-left:3px solid #cbd5e1;background:#fafbfc}
 
-.z-google { border:1.5px solid #60a5fa; background:#f8fbff; }
-.z-google .zone-title { color:#1d4ed8; }
-.z-google .zone-title::before { background:#3b82f6; }
-
-.z-hermes { border:1.5px solid #c084fc; background:#fdfaff; }
-.z-hermes .zone-title { color:#7c3aed; }
-.z-hermes .zone-title::before { background:#a855f7; }
-
-.z-cfg { border:1.5px dashed #fbbf24; background:#fffdf5; }
-.z-cfg .zone-title { color:#b45309; }
-.z-cfg .zone-title::before { background:#f59e0b; }
-
-/* ── Flow column ── */
-.flow { display:flex; flex-direction:column; align-items:center; }
-
-/* ── Node component ── */
-.nd {
-  width:100%; background:#fff; border-radius:10px; padding:10px 14px;
-  text-align:center; border:1.5px solid; box-shadow:0 1px 5px rgba(0,0,0,.06);
-  transition:box-shadow .15s;
+/* ADS star node — hero */
+.n-ads-hero{
+  border:1.5px solid #2dd4bf;border-left:4px solid #0d9488;
+  background:linear-gradient(135deg,#f0fdfa,#f5f9ff);
+  box-shadow:0 2px 8px rgba(20,184,166,.12),0 8px 24px rgba(20,184,166,.08);
 }
-.nd:hover { box-shadow:0 4px 14px rgba(0,0,0,.1); }
-.nd-cn { font-size:13px; font-weight:600; color:#0f172a; line-height:1.3; }
-.nd-en { font-size:9px; color:#94a3b8; font-family:'JetBrains Mono',monospace; margin-top:3px; }
-.nd-tag{ font-size:8px; color:#cbd5e1; margin-top:2px; letter-spacing:.3px; }
+.n-ads-hero .nd-cn{font-size:14px;color:#0f766e}
 
-/* Node border colors */
-.n-src  { border-color:#cbd5e1; }
-.n-ods  { border-color:#93c5fd; }
-.n-dwd  { border-color:#22d3ee; }
-.n-ads  { border-color:#2dd4bf; background:#f0fdfa; }
-.n-view { border-color:#c084fc; }
-.n-dim  { border-color:#fcd34d; }
-.n-czzx { border-color:#86efac; }
-.n-hermes{ border-color:#d8b4fe; }
-
-/* ── Arrow ── */
-.arr { display:flex; flex-direction:column; align-items:center; width:100%; padding:2px 0; }
-.arr-shaft { width:1.5px; height:14px; background:#cbd5e1; }
-.arr-tip   { font-size:13px; color:#94a3b8; line-height:1; margin-top:-2px; }
-.arr-lbl   {
-  font-size:8px; color:#64748b; text-align:center; line-height:1.45;
-  background:#f8fafc; border:1px solid #e2e8f0; border-radius:4px;
-  padding:2px 8px; max-width:180px; margin:2px 0; font-family:'JetBrains Mono',monospace;
-}
-
-/* ── Layer badge ── */
-.layer {
-  font-size:8px; font-weight:700; letter-spacing:.7px; text-transform:uppercase;
-  color:#94a3b8; border:1px solid #e2e8f0; border-radius:4px;
-  padding:2px 10px; margin:4px 0; background:#fff;
+/* ─── Arrow ─── */
+.arr{display:flex;flex-direction:column;align-items:center;width:100%;padding:3px 4px}
+.arr-bar{width:1px;height:12px;background:#d1d5db}
+.arr-tip{font-size:13px;color:#9ca3af;line-height:1;margin-top:-3px}
+.arr-lbl{
+  font-size:8px;color:#64748b;text-align:center;line-height:1.5;
+  background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;
+  padding:3px 9px;max-width:200px;margin:3px 0;
+  font-family:'JetBrains Mono',monospace;
 }
 
-/* ── Side-by-side pair ── */
-.pair { display:grid; grid-template-columns:1fr 1fr; gap:8px; width:100%; }
-
-/* ── CZZX: 3 source nodes ── */
-.trio { display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; width:100%; }
-
-/* ── Config: horizontal 3 ── */
-.cfg-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; width:100%; }
-
-/* ── Bridge: horizontal connection row ── */
-.bridge-wrap { max-width:1480px; margin:24px auto 20px; }
-.bridge-label { text-align:center; font-size:9px; font-weight:700; letter-spacing:.7px; text-transform:uppercase; color:#94a3b8; margin-bottom:14px; }
-.bridge {
-  display:flex; align-items:center;
-  background:#f8fafc; border:1px solid #e2e8f0; border-radius:14px; padding:18px 20px;
+/* ─── Layer pill ─── */
+.layer{
+  font-size:7.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:#94a3b8;border:1px solid #e8ecf3;border-radius:20px;
+  padding:2px 11px;margin:4px 0;background:#fff;
+  box-shadow:0 1px 2px rgba(15,23,42,.04);
 }
-.bridge-node {
-  flex-shrink:0; background:#fff; border-radius:10px; padding:10px 16px;
-  text-align:center; border:1.5px solid; box-shadow:0 1px 5px rgba(0,0,0,.06);
-  min-width:160px;
+
+/* ─── Pair / Trio ─── */
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+.trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;width:100%}
+
+/* ─── 3-column main ─── */
+.main{display:grid;grid-template-columns:1.05fr 1.55fr 0.9fr;gap:20px;max-width:1520px;margin:0 auto;align-items:start}
+
+/* ─── Config zone row ─── */
+.cfg-outer{max-width:1520px;margin:20px auto 0}
+.cfg-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+/* ─── Bridge ─── */
+.bridge-outer{max-width:1520px;margin:24px auto 0}
+.bridge-card{
+  background:#fff;border-radius:16px;padding:22px 24px;
+  box-shadow:0 1px 3px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.05);
 }
-.bridge-node .nd-cn { font-size:12.5px; }
+.bridge-ttl{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#94a3b8;margin-bottom:18px;text-align:center}
+.bridge-row{display:flex;align-items:center}
 
-.bridge-line { flex:1; display:flex; flex-direction:column; align-items:center; position:relative; padding:0 4px; }
-.bridge-line-bar { position:absolute; top:50%; left:0; right:0; height:1.5px; background:#cbd5e1; }
-.bridge-line-lbl {
-  position:relative; z-index:1; background:#fff;
-  border:1px solid #bfdbfe; border-radius:20px;
-  padding:4px 12px; font-size:8px; font-family:'JetBrains Mono',monospace;
-  color:#1d4ed8; text-align:center; line-height:1.5; white-space:nowrap;
+.bnode{
+  flex-shrink:0;background:#fff;border-radius:10px;padding:11px 18px;
+  text-align:center;border:1px solid;
+  box-shadow:0 1px 3px rgba(15,23,42,.06);
+  min-width:168px;
 }
-.bridge-line.h-purple .bridge-line-lbl { border-color:#d8b4fe; color:#7c3aed; }
+.bnode-cn{font-size:12.5px;font-weight:600;color:#0f172a}
+.bnode-en{font-size:8px;color:#94a3b8;font-family:'JetBrains Mono',monospace;margin-top:3px}
 
-.bridge-arrow { font-size:18px; color:#94a3b8; flex-shrink:0; line-height:1; }
-
-/* ── Config zone (below bridge) ── */
-.cfg-wrap { max-width:1480px; margin:0 auto 24px; }
-
-/* ── Final node ── */
-.final-wrap { max-width:1480px; margin:0 auto 36px; text-align:center; }
-.final-down { font-size:20px; color:#34d399; margin-bottom:8px; }
-.final-nd {
-  display:inline-block; background:linear-gradient(135deg,#f0fdfa,#eff6ff);
-  border:2px solid #34d399; border-radius:14px; padding:18px 48px;
+.bline{flex:1;position:relative;height:52px;display:flex;align-items:center;justify-content:center;padding:0 2px}
+.bline-bar{position:absolute;top:50%;left:0;right:0;height:1px;background:linear-gradient(90deg,#cbd5e1,#94a3b8,#cbd5e1)}
+.bline-pill{
+  position:relative;z-index:1;
+  background:#fff;border:1px solid #dbeafe;border-radius:20px;
+  padding:5px 14px;font-size:7.5px;font-family:'JetBrains Mono',monospace;
+  color:#1d4ed8;text-align:center;line-height:1.5;
+  box-shadow:0 1px 4px rgba(59,130,246,.1);white-space:nowrap;
 }
-.final-nd .nd-cn { font-size:16px; color:#065f46; }
-.final-nd .nd-en { font-size:10px; color:#6ee7b7; }
+.bline-pill.violet{border-color:#ede9fe;color:#6d28d9;box-shadow:0 1px 4px rgba(139,92,246,.1)}
+.barrow{font-size:17px;color:#94a3b8;flex-shrink:0;line-height:1}
 
-footer { text-align:center; padding:14px; color:#e2e8f0; font-size:10px; border-top:1px solid #f1f5f9; }
+/* ─── Final ─── */
+.final-outer{max-width:1520px;margin:22px auto 0;text-align:center}
+.final-arrow{font-size:22px;color:#34d399;margin-bottom:10px}
+.final-nd{
+  display:inline-block;
+  background:linear-gradient(135deg,#f0fdfa 0%,#eff6ff 50%,#faf5ff 100%);
+  border:1.5px solid #34d399;border-radius:16px;padding:18px 52px;
+  box-shadow:0 4px 16px rgba(52,211,153,.12),0 1px 4px rgba(52,211,153,.08);
+}
+.final-cn{font-size:17px;font-weight:700;color:#065f46;letter-spacing:-.2px}
+.final-en{font-size:10px;color:#6ee7b7;font-family:'JetBrains Mono',monospace;margin-top:4px}
+.final-tags{display:flex;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.final-tag{font-size:9px;background:rgba(20,184,166,.08);border:1px solid rgba(20,184,166,.2);border-radius:5px;padding:3px 10px;color:#0d9488}
+
+footer{text-align:center;padding:20px;color:#d1d5db;font-size:10px;margin-top:12px}
 </style>
 </head>
 <body>
 
 <div class="hdr">
   <h1>谷歌结算数据流转图</h1>
-  <p>充值中心（三套）· 谷歌主链路 · Hermes · 财务人员配置 → 账单明细</p>
+  <p>充值中心（三套）· 谷歌主链路（ODS → DWD → ADS）· Hermes · 财务人员配置 → 账单明细</p>
 </div>
 
-<!-- ═══ 三栏主区域 ═══ -->
+<!-- ══════ 三栏主区域 ══════ -->
 <div class="main">
 
   <!-- ① 充值中心 -->
-  <div class="zone z-czzx">
-    <div class="zone-title">① 充值中心（三套）</div>
-    <div class="flow">
+  <div class="zone zc-green">
+    <div class="zh"><div class="zh-dot"></div><div class="zh-text">① 充值中心（三套）</div></div>
+    <div class="zb">
 
       <div class="trio">
         <div class="nd n-czzx">
@@ -164,208 +176,209 @@ footer { text-align:center; padding:14px; color:#e2e8f0; font-size:10px; border-
       </div>
 
       <div class="arr">
-        <div class="arr-shaft"></div>
-        <div class="arr-lbl">JOIN 账号映射表 ON ai_id → pay_name<br>（海外另需 JOIN 获取 currency_code）</div>
+        <div class="arr-bar"></div>
+        <div class="arr-lbl">JOIN 账号映射表 ON ai_id → pay_name<br>（海外另需 JOIN 订单扩展表获取 currency）</div>
         <div class="arr-tip">↓</div>
       </div>
 
-      <div class="nd n-ads" style="border-color:#4ade80;background:#f0fdf4">
+      <div class="nd n-czzx" style="border-left-width:4px">
         <div class="nd-cn">充值中心汇总报表</div>
         <div class="nd-en">czzx_google_report</div>
-        <div class="nd-tag">area / pay_name / platform_type / currency_code</div>
+        <div class="nd-sub">area · pay_name · platform_type · currency_code</div>
       </div>
 
       <div class="arr">
-        <div class="arr-shaft"></div>
-        <div class="arr-lbl">JOIN platform_match_report<br>area + platform_type → platform_id<br>JOIN google_account_info ON pay_name = account_id → 结算币种</div>
+        <div class="arr-bar"></div>
+        <div class="arr-lbl">JOIN platform_match_report → platform_id<br>JOIN google_account_info → 结算币种<br>JOIN daily_exchange_rate × 2 → 汇率转换</div>
         <div class="arr-tip">↓</div>
       </div>
 
-      <div class="nd n-view" style="border-color:#4ade80">
+      <div class="nd n-view" style="border-color:#bbf7d0;border-left:3px solid #4ade80">
         <div class="nd-cn">充值中心流水视图</div>
         <div class="nd-en">czzx_google_report_view</div>
-        <div class="nd-tag">results_our_water（结算币）</div>
+        <div class="nd-sub">results_our_water（结算币）</div>
       </div>
 
     </div>
   </div>
 
   <!-- ② 谷歌主链路 -->
-  <div class="zone z-google">
-    <div class="zone-title">② 谷歌主链路</div>
-    <div class="flow">
+  <div class="zone zc-blue">
+    <div class="zh"><div class="zh-dot"></div><div class="zh-text">② 谷歌主链路</div></div>
+    <div class="zb">
 
-      <div class="nd n-src" style="background:#f8f9fc">
+      <div class="nd n-src">
         <div class="nd-cn">Google Play Console</div>
-        <div class="nd-en">earnings CSV（实际）· sales CSV（暂估）</div>
-        <div class="nd-tag">各区域取数机器定时拉取</div>
+        <div class="nd-en">earnings（实际）· sales（暂估）</div>
+        <div class="nd-sub">各区域取数机器定时拉取</div>
       </div>
 
-      <div class="arr"><div class="arr-shaft"></div><div class="arr-tip">↓</div></div>
+      <div class="arr"><div class="arr-bar"></div><div class="arr-tip">↓</div></div>
       <div class="layer">ODS 层</div>
 
       <div class="pair">
         <div class="nd n-ods">
           <div class="nd-cn">账单实际数据</div>
           <div class="nd-en">b_google_orders</div>
-          <div class="nd-tag">08:00 / 12:00</div>
+          <div class="nd-sub">08:00 / 12:00</div>
         </div>
         <div class="nd n-ods">
           <div class="nd-cn">账单暂估数据</div>
           <div class="nd-en">b_google_orders_predict</div>
-          <div class="nd-tag">07:00 / 11:00</div>
+          <div class="nd-sub">07:00 / 11:00</div>
         </div>
       </div>
 
-      <div class="arr"><div class="arr-shaft"></div><div class="arr-tip">↓</div></div>
+      <div class="arr"><div class="arr-bar"></div><div class="arr-tip">↓</div></div>
       <div class="layer">DWD 层</div>
 
       <div class="pair">
         <div class="nd n-dwd">
           <div class="nd-cn">实际订单聚合</div>
           <div class="nd-en">google_order_report</div>
-          <div class="nd-tag">每小时 08:00–20:00</div>
+          <div class="nd-sub">每小时 08:00–20:00</div>
         </div>
         <div class="nd n-dwd">
           <div class="nd-cn">暂估订单聚合</div>
           <div class="nd-en">google_order_predict_report</div>
-          <div class="nd-tag">每小时 08:03–20:03</div>
+          <div class="nd-sub">每小时 08:03–20:03</div>
         </div>
       </div>
 
       <div class="arr">
-        <div class="arr-shaft"></div>
+        <div class="arr-bar"></div>
         <div class="arr-lbl">实际: account = old_account &nbsp;|&nbsp; 暂估: account = account<br>product_id → platform_id · 费率/税率 · 汇率转换</div>
         <div class="arr-tip">↓</div>
       </div>
       <div class="layer">ADS 层</div>
 
-      <div class="nd n-ads">
-        <div class="nd-cn" style="font-size:14px">谷歌结算核心报表 ⭐</div>
+      <div class="nd n-ads-hero">
+        <div class="nd-cn">谷歌结算核心报表</div>
         <div class="nd-en">google_result_report</div>
-        <div class="nd-tag">实际 + 暂估合表 · 09:25 写入</div>
+        <div class="nd-sub">实际 + 暂估合表 · 09:25 写入</div>
       </div>
 
     </div>
   </div>
 
   <!-- ③ Hermes -->
-  <div class="zone z-hermes">
-    <div class="zone-title">③ Hermes 链路</div>
-    <div class="flow">
+  <div class="zone zc-violet">
+    <div class="zh"><div class="zh-dot"></div><div class="zh-text">③ Hermes 链路</div></div>
+    <div class="zb">
 
       <div class="nd n-hermes">
         <div class="nd-cn">Hermes 广告报表</div>
         <div class="nd-en">hermes_ad_report</div>
-        <div class="nd-tag">platform IN ('Android','C_Android')</div>
+        <div class="nd-sub">platform IN ('Android','C_Android')</div>
       </div>
 
       <div class="arr">
-        <div class="arr-shaft"></div>
-        <div class="arr-lbl">JOIN 计费点表 ON third_app_id = product_id → account · platform_id<br>JOIN 账号表 ON account → currency_code<br>JOIN 汇率表 → revenue / usd_exchange</div>
+        <div class="arr-bar"></div>
+        <div class="arr-lbl">JOIN 计费点表 third_app_id = product_id → account · platform_id<br>JOIN 账号表 ON account → currency_code<br>JOIN 汇率表 → revenue / usd_exchange</div>
         <div class="arr-tip">↓</div>
       </div>
 
       <div class="nd n-view">
         <div class="nd-cn">Hermes 我方流水</div>
         <div class="nd-en">hermes_ad_report_view</div>
-        <div class="nd-tag">results_our_water（结算币）</div>
+        <div class="nd-sub">results_our_water（结算币）</div>
       </div>
 
       <div class="arr">
-        <div class="arr-shaft"></div>
-        <div class="arr-lbl">NOT EXISTS 去重：充值中心已有同日期+账号+项目 → 排除此条</div>
+        <div class="arr-bar"></div>
+        <div class="arr-lbl">NOT EXISTS：充值中心已有同日期<br>+账号+项目 → 排除此条</div>
         <div class="arr-tip">↓</div>
       </div>
 
-      <div class="nd n-view" style="border-color:#94a3b8;background:#f8fafc">
-        <div class="nd-cn" style="color:#475569">Hermes 补充数据</div>
-        <div class="nd-en">充值中心无数据时补充</div>
+      <div class="nd" style="border:1px solid #e8ecf3;background:#fafbfc;border-left:3px solid #e2e8f0">
+        <div class="nd-cn" style="color:#64748b;font-size:12px">仅补充充值中心空缺</div>
+        <div class="nd-sub">优先级低于充值中心</div>
       </div>
 
     </div>
   </div>
 
 </div>
-<!-- ═══ end main ═══ -->
 
-
-<!-- ═══ 配置表区域 ═══ -->
-<div class="cfg-wrap">
-  <div class="zone z-cfg" style="max-width:1480px;margin:0 auto">
-    <div class="zone-title">④ 财务人员配置（结算系统后台）— 在 ADS 层关联</div>
-    <div class="cfg-row">
-      <div class="nd n-dim">
-        <div class="nd-cn">谷歌账号配置</div>
-        <div class="nd-en">google_account_info</div>
-        <div class="nd-tag">google_account_id · old_account · account · company_id · currency_code</div>
-      </div>
-      <div class="nd n-dim">
-        <div class="nd-cn">计费点配置</div>
-        <div class="nd-en">google_product_title_info</div>
-        <div class="nd-tag">product_id → platform_id · account · game_name</div>
-      </div>
-      <div class="nd n-dim">
-        <div class="nd-cn">小企业费率配置</div>
-        <div class="nd-en">google_sme_service_rate</div>
-        <div class="nd-tag">google_account_id · year_month · service_rate（暂估使用）</div>
+<!-- ══════ 配置表 ══════ -->
+<div class="cfg-outer">
+  <div class="zone zc-amber">
+    <div class="zh"><div class="zh-dot"></div><div class="zh-text">④ 财务人员配置（结算系统后台）— ADS 层关联时使用</div></div>
+    <div class="zb" style="padding:14px">
+      <div class="cfg-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;width:100%">
+        <div class="nd n-dim">
+          <div class="nd-cn">谷歌账号配置</div>
+          <div class="nd-en">google_account_info</div>
+          <div class="nd-sub">google_account_id · old_account · account · company_id · currency_code</div>
+        </div>
+        <div class="nd n-dim">
+          <div class="nd-cn">计费点配置</div>
+          <div class="nd-en">google_product_title_info</div>
+          <div class="nd-sub">product_id → platform_id · account · game_name</div>
+        </div>
+        <div class="nd n-dim">
+          <div class="nd-cn">小企业费率配置</div>
+          <div class="nd-en">google_sme_service_rate</div>
+          <div class="nd-sub">google_account_id · year_month · service_rate（暂估使用）</div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- ══════ 关联连线 ══════ -->
+<div class="bridge-outer">
+  <div class="bridge-card">
+    <div class="bridge-ttl">最终关联 · 三路数据汇入核心报表</div>
+    <div class="bridge-row">
 
-<!-- ═══ 关联连线区域 ═══ -->
-<div class="bridge-wrap">
-  <div class="bridge-label">最终关联 · 三路数据汇入核心报表</div>
-  <div class="bridge">
+      <div class="bnode" style="border-color:#4ade80">
+        <div class="bnode-cn">充值中心流水视图</div>
+        <div class="bnode-en">czzx_google_report_view</div>
+      </div>
 
-    <!-- 左节点：充值中心 -->
-    <div class="bridge-node" style="border-color:#4ade80">
-      <div class="nd-cn">充值中心流水视图</div>
-      <div class="nd-en">czzx_google_report_view</div>
+      <div class="bline">
+        <div class="bline-bar"></div>
+        <div class="bline-pill">log_date &nbsp;·&nbsp; <b>ai_id → pay_name = google_account_id</b><br>platform_id &nbsp;·&nbsp; sales_currency &nbsp;·&nbsp; result_currency</div>
+      </div>
+      <div class="barrow">→</div>
+
+      <div class="bnode" style="border-color:#2dd4bf;background:linear-gradient(135deg,#f0fdfa,#eff6ff);min-width:200px;border-width:1.5px">
+        <div class="bnode-cn" style="font-size:14px;color:#0f766e">谷歌结算核心报表 ⭐</div>
+        <div class="bnode-en">google_result_report</div>
+      </div>
+
+      <div class="barrow">←</div>
+      <div class="bline">
+        <div class="bline-bar"></div>
+        <div class="bline-pill violet">log_date &nbsp;·&nbsp; google_account_id<br>platform_id &nbsp;·&nbsp; result_currency</div>
+      </div>
+
+      <div class="bnode" style="border-color:#c084fc">
+        <div class="bnode-cn">Hermes 我方流水</div>
+        <div class="bnode-en">hermes_ad_report_view</div>
+      </div>
+
     </div>
-
-    <!-- 充值中心 → 核心报表 连线 -->
-    <div class="bridge-line">
-      <div class="bridge-line-bar"></div>
-      <div class="bridge-line-lbl">log_date · <b>ai_id → pay_name = google_account_id</b><br>platform_id · sales_currency · result_currency</div>
-    </div>
-    <div class="bridge-arrow">→</div>
-
-    <!-- 中心节点：核心报表 -->
-    <div class="bridge-node" style="border-color:#2dd4bf;background:#f0fdfa;min-width:200px">
-      <div class="nd-cn" style="font-size:14px">谷歌结算核心报表 ⭐</div>
-      <div class="nd-en">google_result_report</div>
-    </div>
-
-    <!-- Hermes → 核心报表 连线 -->
-    <div class="bridge-arrow">←</div>
-    <div class="bridge-line h-purple">
-      <div class="bridge-line-bar"></div>
-      <div class="bridge-line-lbl">log_date · google_account_id<br>platform_id · result_currency</div>
-    </div>
-
-    <!-- 右节点：Hermes -->
-    <div class="bridge-node" style="border-color:#c084fc">
-      <div class="nd-cn">Hermes 我方流水</div>
-      <div class="nd-en">hermes_ad_report_view</div>
-    </div>
-
   </div>
 </div>
 
-
-<!-- ═══ 最终输出 ═══ -->
-<div class="final-wrap">
-  <div class="final-down">↓</div>
+<!-- ══════ 最终输出 ══════ -->
+<div class="final-outer">
+  <div class="final-arrow">↓</div>
   <div class="final-nd">
-    <div class="nd-cn">账单明细页 / 金蝶凭证生成</div>
-    <div class="nd-en">/settlement_system/google/bill/detail/ &nbsp;·&nbsp; 实际/暂估切换 · Excel导出 · 数据权限控制</div>
+    <div class="final-cn">账单明细页 / 金蝶凭证生成</div>
+    <div class="final-en">/settlement_system/google/bill/detail/</div>
+    <div class="final-tags">
+      <span class="final-tag">实际 / 暂估切换</span>
+      <span class="final-tag">多维聚合（4种）</span>
+      <span class="final-tag">数据权限控制</span>
+      <span class="final-tag">Excel 导出</span>
+      <span class="final-tag">金蝶凭证生成</span>
+    </div>
   </div>
 </div>
 
-<footer>Generated by 小D · DataClaw &nbsp;·&nbsp; 谷歌结算数据链路 v2.0 &nbsp;·&nbsp; 2026-04-02</footer>
-
+<footer>Generated by 小D · DataClaw &nbsp;·&nbsp; 谷歌结算数据链路 v3.0 &nbsp;·&nbsp; 2026-04-02</footer>
 </body>
 </html>
