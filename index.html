@@ -2,323 +2,370 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>谷歌结算数据流转图</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#f0f4ff;color:#1e293b;font-family:'Inter',-apple-system,sans-serif;padding:32px 28px}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#fff; color:#0f172a; font-family:'Inter',-apple-system,sans-serif; padding:40px 36px 48px; }
 
-.hdr{text-align:center;margin-bottom:28px}
-.hdr h1{font-size:22px;font-weight:700;color:#1e3a8a;letter-spacing:-.3px}
-.hdr p{color:#64748b;font-size:12px;margin-top:5px}
+/* ── Header ── */
+.hdr { text-align:center; margin-bottom:36px; }
+.hdr h1 { font-size:20px; font-weight:700; color:#0f172a; letter-spacing:-.2px; }
+.hdr p  { font-size:11px; color:#94a3b8; margin-top:5px; }
 
-/* 4 lanes */
-.lanes{display:grid;grid-template-columns:1.4fr 1.8fr 1.2fr 0.9fr;gap:16px;max-width:1600px;margin:0 auto}
+/* ── 3-column main layout ── */
+.main { display:grid; grid-template-columns:1fr 1.5fr 1fr; gap:22px; max-width:1480px; margin:0 auto; align-items:start; }
 
-.lane{background:#fff;border-radius:14px;border:1px solid #dbeafe;box-shadow:0 1px 8px rgba(37,99,235,.06)}
-.lh{padding:11px 16px;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;border-bottom:1px solid #dbeafe;border-radius:14px 14px 0 0}
-.l-czzx .lh{color:#16a34a;background:#f0fdf4;border-left:3px solid #22c55e}
-.l-google .lh{color:#1d4ed8;background:#eff6ff;border-left:3px solid #2563eb}
-.l-hermes .lh{color:#7c3aed;background:#faf5ff;border-left:3px solid #8b5cf6}
-.l-cfg .lh{color:#b45309;background:#fffbeb;border-left:3px solid #f59e0b}
-.lb{padding:14px 12px;display:flex;flex-direction:column;gap:6px}
+/* ── Zone containers ── */
+.zone { border-radius:14px; padding:18px 14px 16px; position:relative; }
+.zone-title {
+  font-size:9.5px; font-weight:700; letter-spacing:.9px; text-transform:uppercase;
+  margin-bottom:16px; display:flex; align-items:center; gap:6px;
+}
+.zone-title::before { content:''; display:inline-block; width:8px; height:8px; border-radius:2px; }
 
-/* Nodes */
-.nd{border-radius:8px;padding:9px 11px;border:1px solid}
-.nt{font-weight:600;font-size:11px;color:#0f172a;font-family:'JetBrains Mono',monospace}
-.ns{font-size:9.5px;color:#64748b;margin-top:2px}
-.nf{font-size:9px;font-family:'JetBrains Mono',monospace;color:#94a3b8;margin-top:4px;line-height:1.5}
+.z-czzx { border:1.5px solid #4ade80; background:#fafff7; }
+.z-czzx .zone-title { color:#16a34a; }
+.z-czzx .zone-title::before { background:#22c55e; }
 
-.nd-src{background:#f8faff;border-color:#bfdbfe}
-.nd-ods{background:#eff6ff;border-color:#93c5fd;border-left:2px solid #3b82f6}
-.nd-dwd{background:#ecfeff;border-color:#a5f3fc;border-left:2px solid #06b6d4}
-.nd-ads{background:#f0fdfa;border-color:#99f6e4;border-left:2px solid #14b8a6}
-.nd-ads-star{background:#f0fdfa;border:2px solid #14b8a6;border-left:3px solid #0d9488}
-.nd-view{background:#faf5ff;border-color:#d8b4fe;border-left:2px solid #8b5cf6}
-.nd-dim{background:#fffbeb;border-color:#fde68a;border-left:2px solid #f59e0b}
-.nd-cfg{background:#fff7ed;border-color:#fed7aa;border-left:2px solid #f97316}
-.nd-sea{background:#f0fdf4;border-color:#86efac;border-left:2px solid #22c55e}
-.nd-cn{background:#f7fef4;border-color:#bbf7d0;border-left:2px solid #86efac}
-.nd-bx{background:#fafef5;border-color:#d9f99d;border-left:2px solid #a3e635}
-.nd-rule{background:#fdf4ff;border-color:#e9d5ff}
+.z-google { border:1.5px solid #60a5fa; background:#f8fbff; }
+.z-google .zone-title { color:#1d4ed8; }
+.z-google .zone-title::before { background:#3b82f6; }
 
-/* Arrows */
-.arr{display:flex;flex-direction:column;align-items:center;gap:2px;padding:2px 4px}
-.arr-head{color:#3b82f6;font-size:14px;line-height:1}
-.arr-lbl{font-size:8.5px;font-family:'JetBrains Mono',monospace;color:#2563eb;background:#eff6ff;border:1px solid #bfdbfe;border-radius:4px;padding:2px 7px;text-align:center;line-height:1.5;max-width:200px}
+.z-hermes { border:1.5px solid #c084fc; background:#fdfaff; }
+.z-hermes .zone-title { color:#7c3aed; }
+.z-hermes .zone-title::before { background:#a855f7; }
 
-/* Sub-lanes */
-.sl{border:1px solid #dcfce7;border-radius:8px;padding:8px 8px;margin-bottom:4px;background:#fafffe}
-.sl-lbl{font-size:8px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding-bottom:4px;margin-bottom:5px;border-bottom:1px dashed #bbf7d0;color:#15803d}
-.sl-cn .sl-lbl{color:#4d7c0f;border-color:#d9f99d}
-.sl-bx .sl-lbl{color:#65a30d;border-color:#d9f99d}
-.sl-cn{border-color:#d9f99d}
-.sl-bx{border-color:#d9f99d;background:#fefef9}
+.z-cfg { border:1.5px dashed #fbbf24; background:#fffdf5; }
+.z-cfg .zone-title { color:#b45309; }
+.z-cfg .zone-title::before { background:#f59e0b; }
 
-.sec{text-align:center;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#94a3b8;padding:5px 0 3px;border-top:1px dashed #e2e8f0;margin-top:2px}
+/* ── Flow column ── */
+.flow { display:flex; flex-direction:column; align-items:center; }
 
-.bdg{display:inline-block;font-size:7.5px;padding:1px 6px;border-radius:3px;font-weight:600;margin-top:4px;font-family:'Inter',sans-serif}
-.bt{background:#fef3c7;color:#b45309;border:1px solid #fde68a}
-.bj{background:#dbeafe;color:#1d4ed8;border:1px solid #93c5fd}
-.bp{background:#fee2e2;color:#b91c1c;border:1px solid #fca5a5}
-.bg{background:#dcfce7;color:#15803d;border:1px solid #86efac}
+/* ── Node component ── */
+.nd {
+  width:100%; background:#fff; border-radius:10px; padding:10px 14px;
+  text-align:center; border:1.5px solid; box-shadow:0 1px 5px rgba(0,0,0,.06);
+  transition:box-shadow .15s;
+}
+.nd:hover { box-shadow:0 4px 14px rgba(0,0,0,.1); }
+.nd-cn { font-size:13px; font-weight:600; color:#0f172a; line-height:1.3; }
+.nd-en { font-size:9px; color:#94a3b8; font-family:'JetBrains Mono',monospace; margin-top:3px; }
+.nd-tag{ font-size:8px; color:#cbd5e1; margin-top:2px; letter-spacing:.3px; }
 
-/* Convergence */
-.conv{max-width:1600px;margin:20px auto 0}
-.join-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px}
-.jcard{background:#fff;border:1px solid #dbeafe;border-radius:10px;padding:12px 14px;box-shadow:0 1px 4px rgba(37,99,235,.05)}
-.jt{font-size:10.5px;font-weight:700;color:#1d4ed8;margin-bottom:6px}
-.jb{font-size:9px;font-family:'JetBrains Mono',monospace;color:#64748b;line-height:1.8}
-.jb strong{color:#1e40af}
-.jb em{color:#dc2626;font-style:normal}
+/* Node border colors */
+.n-src  { border-color:#cbd5e1; }
+.n-ods  { border-color:#93c5fd; }
+.n-dwd  { border-color:#22d3ee; }
+.n-ads  { border-color:#2dd4bf; background:#f0fdfa; }
+.n-view { border-color:#c084fc; }
+.n-dim  { border-color:#fcd34d; }
+.n-czzx { border-color:#86efac; }
+.n-hermes{ border-color:#d8b4fe; }
 
-.f-arr{text-align:center;font-size:18px;color:#3b82f6;margin:10px 0}
-.final{background:linear-gradient(135deg,#f0fdf4,#eff6ff);border:2px solid #34d399;border-radius:14px;padding:20px 40px;text-align:center;max-width:1600px;margin:0 auto 32px}
-.final h3{font-size:17px;font-weight:700;color:#065f46}
-.final p{font-size:10.5px;color:#64748b;margin-top:4px;font-family:'JetBrains Mono',monospace}
-.feats{display:flex;justify-content:center;gap:8px;margin-top:11px;flex-wrap:wrap}
-.feat{font-size:9.5px;background:#d1fae5;border:1px solid #6ee7b7;border-radius:5px;padding:3px 10px;color:#065f46;font-weight:500}
+/* ── Arrow ── */
+.arr { display:flex; flex-direction:column; align-items:center; width:100%; padding:2px 0; }
+.arr-shaft { width:1.5px; height:14px; background:#cbd5e1; }
+.arr-tip   { font-size:13px; color:#94a3b8; line-height:1; margin-top:-2px; }
+.arr-lbl   {
+  font-size:8px; color:#64748b; text-align:center; line-height:1.45;
+  background:#f8fafc; border:1px solid #e2e8f0; border-radius:4px;
+  padding:2px 8px; max-width:180px; margin:2px 0; font-family:'JetBrains Mono',monospace;
+}
 
-footer{text-align:center;padding:16px;color:#cbd5e1;font-size:10px;border-top:1px solid #e2e8f0}
+/* ── Layer badge ── */
+.layer {
+  font-size:8px; font-weight:700; letter-spacing:.7px; text-transform:uppercase;
+  color:#94a3b8; border:1px solid #e2e8f0; border-radius:4px;
+  padding:2px 10px; margin:4px 0; background:#fff;
+}
+
+/* ── Side-by-side pair ── */
+.pair { display:grid; grid-template-columns:1fr 1fr; gap:8px; width:100%; }
+
+/* ── CZZX: 3 source nodes ── */
+.trio { display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; width:100%; }
+
+/* ── Config: horizontal 3 ── */
+.cfg-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; width:100%; }
+
+/* ── Bridge: horizontal connection row ── */
+.bridge-wrap { max-width:1480px; margin:24px auto 20px; }
+.bridge-label { text-align:center; font-size:9px; font-weight:700; letter-spacing:.7px; text-transform:uppercase; color:#94a3b8; margin-bottom:14px; }
+.bridge {
+  display:flex; align-items:center;
+  background:#f8fafc; border:1px solid #e2e8f0; border-radius:14px; padding:18px 20px;
+}
+.bridge-node {
+  flex-shrink:0; background:#fff; border-radius:10px; padding:10px 16px;
+  text-align:center; border:1.5px solid; box-shadow:0 1px 5px rgba(0,0,0,.06);
+  min-width:160px;
+}
+.bridge-node .nd-cn { font-size:12.5px; }
+
+.bridge-line { flex:1; display:flex; flex-direction:column; align-items:center; position:relative; padding:0 4px; }
+.bridge-line-bar { position:absolute; top:50%; left:0; right:0; height:1.5px; background:#cbd5e1; }
+.bridge-line-lbl {
+  position:relative; z-index:1; background:#fff;
+  border:1px solid #bfdbfe; border-radius:20px;
+  padding:4px 12px; font-size:8px; font-family:'JetBrains Mono',monospace;
+  color:#1d4ed8; text-align:center; line-height:1.5; white-space:nowrap;
+}
+.bridge-line.h-purple .bridge-line-lbl { border-color:#d8b4fe; color:#7c3aed; }
+
+.bridge-arrow { font-size:18px; color:#94a3b8; flex-shrink:0; line-height:1; }
+
+/* ── Config zone (below bridge) ── */
+.cfg-wrap { max-width:1480px; margin:0 auto 24px; }
+
+/* ── Final node ── */
+.final-wrap { max-width:1480px; margin:0 auto 36px; text-align:center; }
+.final-down { font-size:20px; color:#34d399; margin-bottom:8px; }
+.final-nd {
+  display:inline-block; background:linear-gradient(135deg,#f0fdfa,#eff6ff);
+  border:2px solid #34d399; border-radius:14px; padding:18px 48px;
+}
+.final-nd .nd-cn { font-size:16px; color:#065f46; }
+.final-nd .nd-en { font-size:10px; color:#6ee7b7; }
+
+footer { text-align:center; padding:14px; color:#e2e8f0; font-size:10px; border-top:1px solid #f1f5f9; }
 </style>
 </head>
 <body>
 
 <div class="hdr">
   <h1>谷歌结算数据流转图</h1>
-  <p>Google Play Console → ODS → DWD → ADS → 账单明细 &nbsp;·&nbsp; 充值中心三套 &amp; Hermes 关联链路</p>
+  <p>充值中心（三套）· 谷歌主链路 · Hermes · 财务人员配置 → 账单明细</p>
 </div>
 
-<div class="lanes">
+<!-- ═══ 三栏主区域 ═══ -->
+<div class="main">
 
   <!-- ① 充值中心 -->
-  <div class="lane l-czzx">
-    <div class="lh">① 充值中心（三套）</div>
-    <div class="lb">
+  <div class="zone z-czzx">
+    <div class="zone-title">① 充值中心（三套）</div>
+    <div class="flow">
 
-      <div class="sl">
-        <div class="sl-lbl">🌏 海外</div>
-        <div class="nd nd-sea">
-          <div class="nt">czzx_pay_order_ocean</div>
-          <div class="ns">finance_ods</div>
+      <div class="trio">
+        <div class="nd n-czzx">
+          <div class="nd-cn">海外充值订单</div>
+          <div class="nd-en">czzx_pay_order_ocean</div>
         </div>
-        <div class="arr">
-          <div class="arr-lbl">JOIN czzx_account_infos_ocean ON ai_id → pay_name<br>JOIN pay_order_extra_info_hw ON order_num → currency_code</div>
-          <div class="arr-head">↓</div>
+        <div class="nd n-czzx">
+          <div class="nd-cn">国内充值订单</div>
+          <div class="nd-en">czzx_pay_order</div>
         </div>
-      </div>
-
-      <div class="sl sl-cn">
-        <div class="sl-lbl">🇨🇳 国内</div>
-        <div class="nd nd-cn">
-          <div class="nt">czzx_pay_order</div>
-          <div class="ns">finance_ods</div>
+        <div class="nd n-czzx">
+          <div class="nd-cn">柏项充值订单</div>
+          <div class="nd-en">czzx_pay_order_bx</div>
         </div>
-        <div class="arr">
-          <div class="arr-lbl">JOIN czzx_account_infos ON ai_id → pay_name · CNY固定</div>
-          <div class="arr-head">↓</div>
-        </div>
-      </div>
-
-      <div class="sl sl-bx">
-        <div class="sl-lbl">🏢 柏项</div>
-        <div class="nd nd-bx">
-          <div class="nt">czzx_pay_order_bx</div>
-          <div class="ns">finance_ods</div>
-        </div>
-        <div class="arr">
-          <div class="arr-lbl">JOIN czzx_account_infos_bx ON ai_id → pay_name · CNY固定</div>
-          <div class="arr-head">↓</div>
-        </div>
-      </div>
-
-      <div class="nd nd-ads">
-        <div class="nt">czzx_google_report</div>
-        <div class="ns">finance_ads · area / pay_name / platform_type</div>
       </div>
 
       <div class="arr">
-        <div class="arr-lbl">JOIN platform_match_report ON area+platform_type → platform_id<br>JOIN google_account_info ON pay_name = google_account_id → currency_code<br>JOIN daily_exchange_rate × 2 → 汇率转换</div>
-        <div class="arr-head">↓</div>
+        <div class="arr-shaft"></div>
+        <div class="arr-lbl">JOIN 账号映射表 ON ai_id → pay_name<br>（海外另需 JOIN 获取 currency_code）</div>
+        <div class="arr-tip">↓</div>
       </div>
 
-      <div class="nd nd-view">
-        <div class="nt">czzx_google_report_view</div>
-        <div class="ns">我方流水视图 · results_our_water（结算币）</div>
-        <span class="bdg bg">优先级：高</span>
+      <div class="nd n-ads" style="border-color:#4ade80;background:#f0fdf4">
+        <div class="nd-cn">充值中心汇总报表</div>
+        <div class="nd-en">czzx_google_report</div>
+        <div class="nd-tag">area / pay_name / platform_type / currency_code</div>
+      </div>
+
+      <div class="arr">
+        <div class="arr-shaft"></div>
+        <div class="arr-lbl">JOIN platform_match_report<br>area + platform_type → platform_id<br>JOIN google_account_info ON pay_name = account_id → 结算币种</div>
+        <div class="arr-tip">↓</div>
+      </div>
+
+      <div class="nd n-view" style="border-color:#4ade80">
+        <div class="nd-cn">充值中心流水视图</div>
+        <div class="nd-en">czzx_google_report_view</div>
+        <div class="nd-tag">results_our_water（结算币）</div>
       </div>
 
     </div>
   </div>
 
   <!-- ② 谷歌主链路 -->
-  <div class="lane l-google">
-    <div class="lh">② 谷歌主链路 ⭐</div>
-    <div class="lb">
+  <div class="zone z-google">
+    <div class="zone-title">② 谷歌主链路</div>
+    <div class="flow">
 
-      <div class="nd nd-src">
-        <div class="nt">Google Play Console</div>
-        <div class="ns">earnings CSV（实际）· sales CSV（暂估）· 各区域取数机器拉取</div>
+      <div class="nd n-src" style="background:#f8f9fc">
+        <div class="nd-cn">Google Play Console</div>
+        <div class="nd-en">earnings CSV（实际）· sales CSV（暂估）</div>
+        <div class="nd-tag">各区域取数机器定时拉取</div>
       </div>
 
-      <div class="arr"><div class="arr-head">↓</div></div>
-      <div class="sec">ODS 层</div>
+      <div class="arr"><div class="arr-shaft"></div><div class="arr-tip">↓</div></div>
+      <div class="layer">ODS 层</div>
 
-      <div class="nd nd-ods">
-        <div class="nt">b_google_orders</div>
-        <div class="ns">finance_ods · 实际订单</div>
-        <div class="nf">account · product_id · Transaction_Type · buyer/merchant_currency · amount_*</div>
-        <span class="bdg bt">08:00 / 12:00</span>
+      <div class="pair">
+        <div class="nd n-ods">
+          <div class="nd-cn">账单实际数据</div>
+          <div class="nd-en">b_google_orders</div>
+          <div class="nd-tag">08:00 / 12:00</div>
+        </div>
+        <div class="nd n-ods">
+          <div class="nd-cn">账单暂估数据</div>
+          <div class="nd-en">b_google_orders_predict</div>
+          <div class="nd-tag">07:00 / 11:00</div>
+        </div>
       </div>
 
-      <div class="nd nd-ods" style="margin-top:4px">
-        <div class="nt">b_google_orders_predict</div>
-        <div class="ns">finance_ods · 暂估订单</div>
-        <div class="nf">account · product_id · product_type · currency_of_sale · item_price</div>
-        <span class="bdg bt">07:00 / 11:00</span>
-      </div>
+      <div class="arr"><div class="arr-shaft"></div><div class="arr-tip">↓</div></div>
+      <div class="layer">DWD 层</div>
 
-      <div class="arr"><div class="arr-head">↓</div></div>
-      <div class="sec">DWD 层</div>
-
-      <div class="nd nd-dwd">
-        <div class="nt">google_order_report</div>
-        <div class="ns">finance_dwd · 实际一级聚合</div>
-        <span class="bdg bt">每小时 08:00–20:00</span>
-      </div>
-
-      <div class="nd nd-dwd" style="margin-top:4px">
-        <div class="nt">google_order_predict_report</div>
-        <div class="ns">finance_dwd · 暂估一级聚合</div>
-        <span class="bdg bt">每小时 08:03–20:03</span>
+      <div class="pair">
+        <div class="nd n-dwd">
+          <div class="nd-cn">实际订单聚合</div>
+          <div class="nd-en">google_order_report</div>
+          <div class="nd-tag">每小时 08:00–20:00</div>
+        </div>
+        <div class="nd n-dwd">
+          <div class="nd-cn">暂估订单聚合</div>
+          <div class="nd-en">google_order_predict_report</div>
+          <div class="nd-tag">每小时 08:03–20:03</div>
+        </div>
       </div>
 
       <div class="arr">
-        <div class="arr-lbl">实际: account = old_account &nbsp;|&nbsp; 暂估: account = account<br>product_id → platform_id（via 计费点表）· 费率/税率计算 · 汇率转换</div>
-        <div class="arr-head">↓</div>
+        <div class="arr-shaft"></div>
+        <div class="arr-lbl">实际: account = old_account &nbsp;|&nbsp; 暂估: account = account<br>product_id → platform_id · 费率/税率 · 汇率转换</div>
+        <div class="arr-tip">↓</div>
       </div>
-      <div class="sec">ADS 层</div>
+      <div class="layer">ADS 层</div>
 
-      <div class="nd nd-ads-star">
-        <div class="nt">google_result_report ⭐</div>
-        <div class="ns">finance_ads · 结算核心报表（实际 + 暂估合表）</div>
-        <div class="nf">log_date · company_id · google_account_id · platform_id<br>sales_currency · result_currency · sales_* · results_* · *_zg</div>
-        <span class="bdg bt">09:25 写入</span>
+      <div class="nd n-ads">
+        <div class="nd-cn" style="font-size:14px">谷歌结算核心报表 ⭐</div>
+        <div class="nd-en">google_result_report</div>
+        <div class="nd-tag">实际 + 暂估合表 · 09:25 写入</div>
       </div>
 
     </div>
   </div>
 
   <!-- ③ Hermes -->
-  <div class="lane l-hermes">
-    <div class="lh">③ Hermes 链路</div>
-    <div class="lb">
+  <div class="zone z-hermes">
+    <div class="zone-title">③ Hermes 链路</div>
+    <div class="flow">
 
-      <div class="nd nd-src">
-        <div class="nt">hermes_ad_report</div>
-        <div class="ns">finance_ads</div>
-        <div class="nf">log_date · third_app_id · revenue<br>platform IN ('Android','C_Android')</div>
+      <div class="nd n-hermes">
+        <div class="nd-cn">Hermes 广告报表</div>
+        <div class="nd-en">hermes_ad_report</div>
+        <div class="nd-tag">platform IN ('Android','C_Android')</div>
       </div>
 
       <div class="arr">
-        <div class="arr-lbl">JOIN google_product_title_info ON third_app_id = product_id → account · platform_id<br>JOIN google_account_info ON account → currency_code<br>JOIN daily_exchange_rate → revenue / usd_exchange</div>
-        <div class="arr-head">↓</div>
+        <div class="arr-shaft"></div>
+        <div class="arr-lbl">JOIN 计费点表 ON third_app_id = product_id → account · platform_id<br>JOIN 账号表 ON account → currency_code<br>JOIN 汇率表 → revenue / usd_exchange</div>
+        <div class="arr-tip">↓</div>
       </div>
 
-      <div class="nd nd-view">
-        <div class="nt">hermes_ad_report_view</div>
-        <div class="ns">我方流水视图 · results_our_water（结算币）</div>
-        <span class="bdg bp">优先级：低</span>
+      <div class="nd n-view">
+        <div class="nd-cn">Hermes 我方流水</div>
+        <div class="nd-en">hermes_ad_report_view</div>
+        <div class="nd-tag">results_our_water（结算币）</div>
       </div>
 
-      <div class="arr"><div class="arr-head">↓</div></div>
-
-      <div class="nd nd-rule">
-        <div class="nt" style="font-size:10.5px">NOT EXISTS 去重</div>
-        <div class="ns">充值中心已有同日期+账号+项目+币种 → 排除 Hermes 该条</div>
+      <div class="arr">
+        <div class="arr-shaft"></div>
+        <div class="arr-lbl">NOT EXISTS 去重：充值中心已有同日期+账号+项目 → 排除此条</div>
+        <div class="arr-tip">↓</div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- ④ 用户配置 -->
-  <div class="lane l-cfg">
-    <div class="lh">④ 用户配置</div>
-    <div class="lb">
-
-      <div class="nd nd-cfg">
-        <div class="nt">/account/info/</div>
-        <div class="ns">→ google_account_info</div>
-        <div class="nf">google_account_id · old_account · account · company_id · currency_code</div>
-        <span class="bdg bj">所有链路</span>
-      </div>
-
-      <div class="nd nd-cfg" style="margin-top:5px">
-        <div class="nt">/product/title/info/</div>
-        <div class="ns">→ google_product_title_info</div>
-        <div class="nf">product_id → platform_id · account · game_name</div>
-        <span class="bdg bj">Hermes关联核心</span>
-      </div>
-
-      <div class="nd nd-cfg" style="margin-top:5px">
-        <div class="nt">/sme/service/rate/</div>
-        <div class="ns">→ google_sme_service_rate</div>
-        <div class="nf">google_account_id · year_month · service_rate</div>
-        <span class="bdg bj">仅暂估使用</span>
-      </div>
-
-      <div class="nd nd-dim" style="margin-top:8px">
-        <div class="nt">daily_exchange_rate</div>
-        <div class="ns">finance_dim · 每日汇率（系统维护）</div>
-      </div>
-
-      <div class="nd nd-dim" style="margin-top:5px">
-        <div class="nt">platform_match_report</div>
-        <div class="ns">充值中心项目映射</div>
-        <div class="nf">area + platform_type → platform_id</div>
+      <div class="nd n-view" style="border-color:#94a3b8;background:#f8fafc">
+        <div class="nd-cn" style="color:#475569">Hermes 补充数据</div>
+        <div class="nd-en">充值中心无数据时补充</div>
       </div>
 
     </div>
   </div>
 
 </div>
+<!-- ═══ end main ═══ -->
 
-<!-- Convergence -->
-<div class="conv">
-  <div class="f-arr">↓ 最终聚合</div>
 
-  <div class="join-row">
-    <div class="jcard">
-      <div class="jt">主表 JOIN 充值中心视图</div>
-      <div class="jb">ON <strong>log_date</strong> &amp; <strong>google_account_id = account</strong><br>&amp; <strong>platform_id</strong> &amp; <strong>sales_currency</strong> &amp; <strong>result_currency</strong></div>
-    </div>
-    <div class="jcard">
-      <div class="jt">主表 JOIN Hermes 视图</div>
-      <div class="jb">ON <strong>log_date</strong> &amp; <strong>google_account_id = account</strong><br>&amp; <strong>platform_id</strong> &amp; <strong>result_currency</strong><br><em>（充值中心已有数据时 Hermes 为 NULL）</em></div>
-    </div>
-    <div class="jcard">
-      <div class="jt">结算金额</div>
-      <div class="jb">results_amount - results_fee - results_gst<br>- results_taxs - refund_amount<br>+ re_refund_amount + re_tax_refund_amount</div>
-    </div>
-  </div>
-
-  <div class="f-arr">↓</div>
-
-  <div class="final">
-    <h3>🏁 结算系统 · 账单明细页 &nbsp;/google/bill/detail/</h3>
-    <p>google_result_report &nbsp;LEFT JOIN&nbsp; czzx_google_report_view &nbsp;LEFT JOIN&nbsp; hermes_ad_report_view</p>
-    <div class="feats">
-      <span class="feat">多维聚合（4种）</span>
-      <span class="feat">实际 / 暂估切换</span>
-      <span class="feat">日 / 月粒度</span>
-      <span class="feat">数据权限控制</span>
-      <span class="feat">Excel 导出</span>
-      <span class="feat">金蝶凭证生成</span>
+<!-- ═══ 配置表区域 ═══ -->
+<div class="cfg-wrap">
+  <div class="zone z-cfg" style="max-width:1480px;margin:0 auto">
+    <div class="zone-title">④ 财务人员配置（结算系统后台）— 在 ADS 层关联</div>
+    <div class="cfg-row">
+      <div class="nd n-dim">
+        <div class="nd-cn">谷歌账号配置</div>
+        <div class="nd-en">google_account_info</div>
+        <div class="nd-tag">google_account_id · old_account · account · company_id · currency_code</div>
+      </div>
+      <div class="nd n-dim">
+        <div class="nd-cn">计费点配置</div>
+        <div class="nd-en">google_product_title_info</div>
+        <div class="nd-tag">product_id → platform_id · account · game_name</div>
+      </div>
+      <div class="nd n-dim">
+        <div class="nd-cn">小企业费率配置</div>
+        <div class="nd-en">google_sme_service_rate</div>
+        <div class="nd-tag">google_account_id · year_month · service_rate（暂估使用）</div>
+      </div>
     </div>
   </div>
 </div>
 
-<footer>Generated by 小D · DataClaw &nbsp;·&nbsp; 谷歌结算数据链路 v1.2 &nbsp;·&nbsp; 2026-04-02</footer>
+
+<!-- ═══ 关联连线区域 ═══ -->
+<div class="bridge-wrap">
+  <div class="bridge-label">最终关联 · 三路数据汇入核心报表</div>
+  <div class="bridge">
+
+    <!-- 左节点：充值中心 -->
+    <div class="bridge-node" style="border-color:#4ade80">
+      <div class="nd-cn">充值中心流水视图</div>
+      <div class="nd-en">czzx_google_report_view</div>
+    </div>
+
+    <!-- 充值中心 → 核心报表 连线 -->
+    <div class="bridge-line">
+      <div class="bridge-line-bar"></div>
+      <div class="bridge-line-lbl">log_date · google_account_id<br>platform_id · sales_currency · result_currency</div>
+    </div>
+    <div class="bridge-arrow">→</div>
+
+    <!-- 中心节点：核心报表 -->
+    <div class="bridge-node" style="border-color:#2dd4bf;background:#f0fdfa;min-width:200px">
+      <div class="nd-cn" style="font-size:14px">谷歌结算核心报表 ⭐</div>
+      <div class="nd-en">google_result_report</div>
+    </div>
+
+    <!-- Hermes → 核心报表 连线 -->
+    <div class="bridge-arrow">←</div>
+    <div class="bridge-line h-purple">
+      <div class="bridge-line-bar"></div>
+      <div class="bridge-line-lbl">log_date · google_account_id<br>platform_id · result_currency</div>
+    </div>
+
+    <!-- 右节点：Hermes -->
+    <div class="bridge-node" style="border-color:#c084fc">
+      <div class="nd-cn">Hermes 我方流水</div>
+      <div class="nd-en">hermes_ad_report_view</div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══ 最终输出 ═══ -->
+<div class="final-wrap">
+  <div class="final-down">↓</div>
+  <div class="final-nd">
+    <div class="nd-cn">账单明细页 / 金蝶凭证生成</div>
+    <div class="nd-en">/settlement_system/google/bill/detail/ &nbsp;·&nbsp; 实际/暂估切换 · Excel导出 · 数据权限控制</div>
+  </div>
+</div>
+
+<footer>Generated by 小D · DataClaw &nbsp;·&nbsp; 谷歌结算数据链路 v2.0 &nbsp;·&nbsp; 2026-04-02</footer>
+
 </body>
 </html>
